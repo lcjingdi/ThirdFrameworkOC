@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "AnimatedProgressView.h"
+#import "AnimatedTool.h"
 
 @interface ViewController ()
 
@@ -16,13 +18,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    AnimatedProgressView *view = [[AnimatedProgressView alloc] initWithFrame:CGRectMake(50, 100, 200, 33)];
+    [self.view addSubview:view];
+    
+    AnimatedProgressView *view2 = [[AnimatedProgressView alloc] initWithFrame:CGRectMake(50, 200, 200, 33)];
+    [self.view addSubview:view2];
+    
+    AnimatedProgressView *view3 = [[AnimatedProgressView alloc] initWithFrame:CGRectMake(50, 300, 200, 33)];
+    [self.view addSubview:view3];
+    
+    AnimatedProgressView *view4 = [[AnimatedProgressView alloc] initWithFrame:CGRectMake(50, 400, 200, 33)];
+    [self.view addSubview:view4];
+    
+    [AnimatedTool layerAnimationWithLayer:view.subLayer fromValue:0 toValue:1];
+    [AnimatedTool layerAnimationWithLayer:view2.subLayer fromValue:0 toValue:1];
+    [AnimatedTool layerAnimationWithLayer:view3.subLayer fromValue:0 toValue:1];
+    [AnimatedTool layerAnimationWithLayer:view4.subLayer fromValue:0 toValue:1];
 }
 
 

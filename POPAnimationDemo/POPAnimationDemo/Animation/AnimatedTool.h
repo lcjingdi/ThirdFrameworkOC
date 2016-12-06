@@ -17,6 +17,8 @@
 + (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to velocity:(CGSize)velocity springBounds:(CGFloat)bounds;
 + (void)scaleDefaultAnimationWithView:(UIView *)view;
 
++ (void)layerAnimationWithLayer:(CALayer *)layer fromValue:(CGFloat)from toValue:(CGFloat)to;
+
 @end
 
 
