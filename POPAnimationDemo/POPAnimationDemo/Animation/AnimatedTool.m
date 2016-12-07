@@ -9,10 +9,6 @@
 #import "AnimatedTool.h"
 #import <POP.h>
 
-@interface AnimatedTool()<POPAnimationDelegate>
-
-@end
-
 @implementation AnimatedTool
 
 NSString *const AnimatedToolEndNotification = @"AnimatedToolEndNotification";
@@ -110,29 +106,6 @@ static AnimatedTool *_instance = nil;
     }];
     
 }
-
-//#pragma mark - POPAnimationDelegate
-//- (void)pop_animationDidStart:(POPAnimation *)anim {
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStart)]) {
-//        [self.delegate animationDidStart];
-//    }
-//}
-
-//- (void)pop_animationDidReachToValue:(POPAnimation *)anim {
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(animationStart)]) {
-//        [self.delegate animationStart];
-//    }
-//}
-//- (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished {
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStop)]) {
-//        [self.delegate animationDidStop];
-//    }
-//}
-//- (void)pop_animationDidApply:(POPAnimation *)anim {
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidApply)]) {
-//        [self.delegate animationDidApply];
-//    }
-//}
 
 @end
 

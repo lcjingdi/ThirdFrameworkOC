@@ -7,7 +7,7 @@
 //
 
 #import "WingedbeanView.h"
-#import "AnimatedTool.h"
+#import "AnimatedTool2.h"
 
 @interface WingedbeanView()
 // 背景View
@@ -38,14 +38,14 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textxxoo:) name:AnimatedToolEndNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textxxoo:) name:AnimatedToolEndNotification2 object:nil];
     }
     return self;
 }
 - (instancetype)init {
     if (self = [super init]) {
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textxxoo:) name:AnimatedToolEndNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textxxoo:) name:AnimatedToolEndNotification2 object:nil];
     }
     return self;
 }
@@ -57,8 +57,8 @@
         [self.backgroundView addSubview:self.backgroundImageView];
         [self.backgroundView addSubview:self.cartoonImageView];
         
-        [[AnimatedTool sharedAnimatedTool] scaleAnimationWithView:self.backgroundImageView toValue:CGSizeMake(2, 2) keyPath:@"xxxx1" velocity:CGSizeMake(5, 5) springBounds:20];
-        [[AnimatedTool sharedAnimatedTool] scaleAnimationWithView:self.cartoonImageView toValue:CGSizeMake(2, 2) keyPath:@"xxxx2" velocity:CGSizeMake(5, 5) springBounds:20];
+        [[AnimatedTool2 sharedAnimatedTool] scaleAnimationWithView:self.backgroundImageView toValue:CGSizeMake(2, 2) keyPath:@"xxxx1" velocity:CGSizeMake(5, 5) springBounds:20];
+        [[AnimatedTool2 sharedAnimatedTool] scaleAnimationWithView:self.cartoonImageView toValue:CGSizeMake(2, 2) keyPath:@"xxxx2" velocity:CGSizeMake(5, 5) springBounds:20];
         
         [view addSubview:self];
     }
@@ -102,17 +102,17 @@
         [self.backgroundView addSubview:self.expImageView];
         [self.backgroundView addSubview:self.titleLabel];
 
-        [[AnimatedTool sharedAnimatedTool] positionAnimationWithView:self.beanImageView toValue:CGPointMake(CGRectGetMaxX(self.cartoonImageView.frame) - 10, 20) keyPath:@"xxxx3" velocity:CGSizeMake(5, 5) springBounds:20];
-        [[AnimatedTool sharedAnimatedTool] positionAnimationWithView:self.expImageView toValue:CGPointMake(CGRectGetMaxX(self.cartoonImageView.frame) - 10, 55) keyPath:@"xxxx4" velocity:CGSizeMake(5, 5) springBounds:20];
-        [[AnimatedTool sharedAnimatedTool] scaleAnimationWithView:self.beanImageView toValue:CGSizeMake(2, 2) keyPath:@"xxxx5"];
-        [[AnimatedTool sharedAnimatedTool] scaleAnimationWithView:self.expImageView toValue:CGSizeMake(2, 2) keyPath:@"xxxx6"];
+        [[AnimatedTool2 sharedAnimatedTool] positionAnimationWithView:self.beanImageView toValue:CGPointMake(CGRectGetMaxX(self.cartoonImageView.frame) - 10, 20) keyPath:@"xxxx3" velocity:CGSizeMake(5, 5) springBounds:20];
+        [[AnimatedTool2 sharedAnimatedTool] positionAnimationWithView:self.expImageView toValue:CGPointMake(CGRectGetMaxX(self.cartoonImageView.frame) - 10, 55) keyPath:@"xxxx4" velocity:CGSizeMake(5, 5) springBounds:20];
+        [[AnimatedTool2 sharedAnimatedTool] scaleAnimationWithView:self.beanImageView toValue:CGSizeMake(2, 2) keyPath:@"xxxx5"];
+        [[AnimatedTool2 sharedAnimatedTool] scaleAnimationWithView:self.expImageView toValue:CGSizeMake(2, 2) keyPath:@"xxxx6"];
     } else if([notification.object[@"keyPath"] isEqualToString:@"xxxx3"]){
         [self.backgroundView addSubview:self.addLabel1];
         [self.backgroundView addSubview:self.addLabel2];
         [self.backgroundView addSubview:self.beanLabel];
         [self.backgroundView addSubview:self.expLabel];
-        [[AnimatedTool sharedAnimatedTool] numberAnimationWithView:self.beanLabel fromValue:@"0" toValue:@"1000" keyPath:@"xxxx7"];
-        [[AnimatedTool sharedAnimatedTool] numberAnimationWithView:self.expLabel fromValue:@"0" toValue:@"500" keyPath:@"xxxx8"];
+//        [[AnimatedTool2 sharedAnimatedTool] numberAnimationWithView:self.beanLabel fromValue:@"0" toValue:@"1000" keyPath:@"xxxx7"];
+//        [[AnimatedTool2 sharedAnimatedTool] numberAnimationWithView:self.expLabel fromValue:@"0" toValue:@"500" keyPath:@"xxxx8"];
     } else if ([notification.object[@"keyPath"] isEqualToString:@"xxxx7"]) {
         
     }
