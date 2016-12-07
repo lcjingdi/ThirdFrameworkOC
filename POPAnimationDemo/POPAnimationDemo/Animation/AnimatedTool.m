@@ -9,34 +9,61 @@
 #import "AnimatedTool.h"
 #import <POP.h>
 
+@interface AnimatedTool()<POPAnimationDelegate>
+
+@end
+
 @implementation AnimatedTool
 
 NSString *const AnimatedToolEndNotification = @"AnimatedToolEndNotification";
+static AnimatedTool *_instance = nil;
 
-+ (void)boundsAnimationWithView:(UIView *)view toValue:(CGRect)to {
++ (instancetype)sharedAnimatedTool {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
+}
+
+- (void)boundsAnimationWithView:(UIView *)view toValue:(CGRect)to {
     [self animatedWithView:view toValue:[NSValue valueWithCGRect:to] forKey:@"size“" type:kPOPLayerBounds];
 }
-+ (void)positionAnimationWithView:(UIView *)view toValue:(CGPoint)to {
-    [self animatedWithView:view toValue:[NSValue valueWithCGPoint:to] forKey:nil type:kPOPLayerPosition];
+- (void)positionAnimationWithView:(UIView *)view toValue:(CGPoint)to keyPath:(NSString *)keyPath{
+    [self animatedWithView:view toValue:[NSValue valueWithCGPoint:to] forKey:keyPath type:kPOPLayerPosition];
 }
-+ (void)colorAnimationWithView:(UIView *)view toValue:(UIColor *)to {
+- (void)positionAnimationWithView:(UIView *)view toValue:(CGPoint)to keyPath:(NSString *)keyPath velocity:(CGSize)velocity springBounds:(CGFloat)bounds {
+    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
+    anim.toValue = [NSValue valueWithCGPoint:to];
+    anim.springSpeed = 20;
+    [view.layer pop_addAnimation:anim forKey:keyPath];
+    
+    [anim setCompletionBlock:^(POPAnimation *animation, BOOL b) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AnimatedToolEndNotification object:@{@"keyPath": keyPath, @"type": kPOPLayerPosition}];
+    }];
+}
+- (void)colorAnimationWithView:(UIView *)view toValue:(UIColor *)to {
     [self animatedWithView:view toValue:(id)to.CGColor forKey:nil type:kPOPLayerBackgroundColor];
 }
-+ (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to {
-    [self animatedWithView:view toValue:[NSValue valueWithCGSize:to] forKey:@"layerScaleSmallAnimation" type:kPOPLayerScaleXY];
+
+- (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to keyPath:(NSString *)keyPath {
+    [self animatedWithView:view toValue:[NSValue valueWithCGSize:to] forKey:keyPath type:kPOPLayerScaleXY];
 }
-+ (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to velocity:(CGSize)velocity springBounds:(CGFloat)bounds {
+- (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to keyPath:(NSString *)keyPath velocity:(CGSize)velocity springBounds:(CGFloat)bounds {
     POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    anim.velocity = [NSValue valueWithCGSize:CGSizeMake(3.f, 3.f)];
-    anim.toValue = [NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)];
-    anim.springBounciness = 18.f;
-    [view.layer pop_addAnimation:anim forKey:@"layerScaleSpringAnimation"];
+    anim.velocity = [NSValue valueWithCGSize:velocity];
+    anim.toValue = [NSValue valueWithCGSize:to];
+    anim.springBounciness = bounds;
+    [view.layer pop_addAnimation:anim forKey:keyPath];
+    [anim setCompletionBlock:^(POPAnimation *anim, BOOL b) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AnimatedToolEndNotification object:@{@"keyPath": keyPath, @"type": kPOPLayerScaleXY}];
+    }];
 }
-+ (void)scaleDefaultAnimationWithView:(UIView *)view {
+- (void)scaleDefaultAnimationWithView:(UIView *)view {
     [self animatedWithView:view toValue:[NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)] forKey:@"layerScaleDefaultAnimation" type:kPOPLayerScaleXY];
 }
 
-+ (void)numberAnimationWithView:(UIView *)view fromValue:(NSString *)from toValue:(NSString *)to {
+- (void)numberAnimationWithView:(UIView *)view fromValue:(NSString *)from toValue:(NSString *)to keyPath:(NSString *)keyPath {
     POPBasicAnimation *anim = [POPBasicAnimation animation];
     anim.duration = 3.0f;
     anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
@@ -53,9 +80,9 @@ NSString *const AnimatedToolEndNotification = @"AnimatedToolEndNotification";
     anim.fromValue = @([from integerValue]);
     anim.toValue = @([to integerValue]);
     
-    [view pop_addAnimation:anim forKey:@""];
+    [view pop_addAnimation:anim forKey:keyPath];
 }
-+ (void)layerAnimationWithLayer:(CALayer *)layer fromValue:(CGFloat)from toValue:(CGFloat)to {
+- (void)layerAnimationWithLayer:(CALayer *)layer fromValue:(CGFloat)from toValue:(CGFloat)to {
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(100, 100), NO, 0.0);
     POPBasicAnimation *progressBoundsAnim = [POPBasicAnimation animationWithPropertyNamed:kPOPShapeLayerStrokeEnd];
     progressBoundsAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
@@ -71,17 +98,42 @@ NSString *const AnimatedToolEndNotification = @"AnimatedToolEndNotification";
     };
 
 }
-+ (void)animatedWithView:(UIView *)view toValue:(NSValue *)value forKey:(NSString *)key type:(NSString *)type {
+- (void)animatedWithView:(UIView *)view toValue:(NSValue *)value forKey:(NSString *)key type:(NSString *)type {
     POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:type];
+    anim.delegate = self;
     anim.toValue = value;
     anim.springSpeed = 0;
     [view.layer pop_addAnimation:anim forKey:key];
-    
+
     [anim setCompletionBlock:^(POPAnimation *animation, BOOL b) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AnimatedToolEndNotification object:@""];
+        [[NSNotificationCenter defaultCenter] postNotificationName:AnimatedToolEndNotification object:@{@"keyPath": key, @"type": type}];
     }];
     
 }
+
+//#pragma mark - POPAnimationDelegate
+//- (void)pop_animationDidStart:(POPAnimation *)anim {
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStart)]) {
+//        [self.delegate animationDidStart];
+//    }
+//}
+
+//- (void)pop_animationDidReachToValue:(POPAnimation *)anim {
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(animationStart)]) {
+//        [self.delegate animationStart];
+//    }
+//}
+//- (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished {
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidStop)]) {
+//        [self.delegate animationDidStop];
+//    }
+//}
+//- (void)pop_animationDidApply:(POPAnimation *)anim {
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(animationDidApply)]) {
+//        [self.delegate animationDidApply];
+//    }
+//}
+
 @end
 
 

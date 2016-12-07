@@ -17,6 +17,7 @@
 		1F0757211DF6C74500571F0C /* CABasicAnimationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F07571B1DF6C74500571F0C /* CABasicAnimationDemo.m */; };
 		1F0757221DF6C74500571F0C /* CAKeyframeAnimationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F07571D1DF6C74500571F0C /* CAKeyframeAnimationDemo.m */; };
 		1F0757231DF6C74500571F0C /* CATransitionDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F07571F1DF6C74500571F0C /* CATransitionDemo.m */; };
+		1F0757261DF7A93600571F0C /* WingedbeanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0757251DF7A93600571F0C /* WingedbeanView.m */; };
 		1FC023DE1DF763290007B0CD /* AnimatedProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC023DD1DF763290007B0CD /* AnimatedProgressView.m */; };
 		B10100CBC791E346BF091122 /* libPods-POPAnimationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B45F62593348BE326826D8 /* libPods-POPAnimationDemo.a */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,8 @@
 		1F07571D1DF6C74500571F0C /* CAKeyframeAnimationDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAKeyframeAnimationDemo.m; sourceTree = "<group>"; };
 		1F07571E1DF6C74500571F0C /* CATransitionDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CATransitionDemo.h; sourceTree = "<group>"; };
 		1F07571F1DF6C74500571F0C /* CATransitionDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CATransitionDemo.m; sourceTree = "<group>"; };
+		1F0757241DF7A93600571F0C /* WingedbeanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WingedbeanView.h; sourceTree = "<group>"; };
+		1F0757251DF7A93600571F0C /* WingedbeanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WingedbeanView.m; sourceTree = "<group>"; };
 		1FC023DC1DF763290007B0CD /* AnimatedProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedProgressView.h; sourceTree = "<group>"; };
 		1FC023DD1DF763290007B0CD /* AnimatedProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedProgressView.m; sourceTree = "<group>"; };
 		68B45F62593348BE326826D8 /* libPods-POPAnimationDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-POPAnimationDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +83,8 @@
 		1F0756FF1DF6C6DE00571F0C /* POPAnimationDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1F0757241DF7A93600571F0C /* WingedbeanView.h */,
+				1F0757251DF7A93600571F0C /* WingedbeanView.m */,
 				1F0757061DF6C6DE00571F0C /* ViewController.h */,
 				1F0757071DF6C6DE00571F0C /* ViewController.m */,
 				1F0757171DF6C74500571F0C /* Animation */,
@@ -260,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F0757081DF6C6DE00571F0C /* ViewController.m in Sources */,
+				1F0757261DF7A93600571F0C /* WingedbeanView.m in Sources */,
 				1F0757231DF6C74500571F0C /* CATransitionDemo.m in Sources */,
 				1F0757221DF6C74500571F0C /* CAKeyframeAnimationDemo.m in Sources */,
 				1F0757051DF6C6DE00571F0C /* AppDelegate.m in Sources */,

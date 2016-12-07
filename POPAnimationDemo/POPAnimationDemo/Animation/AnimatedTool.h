@@ -7,20 +7,31 @@
 //
 #import <UIKit/UIKit.h>
 
+//@protocol AnimatedToolDelegate <NSObject>
+//
+//- (void)animationDidStart;
+//- (void)animationDidStop;
+//
+//@end
+
 @interface AnimatedTool : NSObject
 
-+ (void)boundsAnimationWithView:(UIView *)view toValue:(CGRect)to;
-+ (void)positionAnimationWithView:(UIView *)view toValue:(CGPoint)to;
-+ (void)colorAnimationWithView:(UIView *)view toValue:(UIColor *)to;
+//@property (nonatomic, weak) id<AnimatedToolDelegate> delegate;
 
-+ (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to;
-+ (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to velocity:(CGSize)velocity springBounds:(CGFloat)bounds;
-+ (void)scaleDefaultAnimationWithView:(UIView *)view;
++ (instancetype)sharedAnimatedTool;
+
+- (void)boundsAnimationWithView:(UIView *)view toValue:(CGRect)to;
+- (void)positionAnimationWithView:(UIView *)view toValue:(CGPoint)to keyPath:(NSString *)keyPath;
+- (void)positionAnimationWithView:(UIView *)view toValue:(CGPoint)to keyPath:(NSString *)keyPath velocity:(CGSize)velocity springBounds:(CGFloat)bounds;
+- (void)colorAnimationWithView:(UIView *)view toValue:(UIColor *)to;
+
+- (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to keyPath:(NSString *)keyPath;
+- (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to keyPath:(NSString *)keyPath velocity:(CGSize)velocity springBounds:(CGFloat)bounds;
+- (void)scaleDefaultAnimationWithView:(UIView *)view;
 
 
-+ (void)numberAnimationWithView:(UIView *)view fromValue:(NSString *)from toValue:(NSString *)to;
-
-+ (void)layerAnimationWithLayer:(CALayer *)layer fromValue:(CGFloat)from toValue:(CGFloat)to;
+- (void)numberAnimationWithView:(UIView *)view fromValue:(NSString *)from toValue:(NSString *)to keyPath:(NSString *)keyPath;
+- (void)layerAnimationWithLayer:(CALayer *)layer fromValue:(CGFloat)from toValue:(CGFloat)to;
 
 @end
 
