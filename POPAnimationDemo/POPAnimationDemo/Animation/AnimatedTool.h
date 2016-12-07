@@ -17,7 +17,11 @@
 + (void)scaleAnimationWithView:(UIView *)view toValue:(CGSize)to velocity:(CGSize)velocity springBounds:(CGFloat)bounds;
 + (void)scaleDefaultAnimationWithView:(UIView *)view;
 
+
 + (void)numberAnimationWithView:(UIView *)view fromValue:(NSString *)from toValue:(NSString *)to;
+
++ (void)layerAnimationWithLayer:(CALayer *)layer fromValue:(CGFloat)from toValue:(CGFloat)to;
+
 @end
 
 
